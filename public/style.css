@@ -1,0 +1,531 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: #F8FAFD;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ЛЕВАЯ ПАНЕЛЬ */
+.side-panel {
+  width: 270px;
+  height: 100%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* ЛОГОТИП */
+.logo-area {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-container {
+  display: flex;
+  /* Выравниваем по нижней линии (baseline — по линии шрифта, flex-end — по краю блоков) */
+  align-items: baseline;
+  gap: 0;
+  position: relative;
+
+}
+
+.fil0 {
+  fill: black;
+}
+
+.fnt0 { 
+  font-weight: 900; 
+  font-size: 93.5px; 
+  font-family: 'Inter', sans-serif;
+  paint-order: stroke fill;
+  stroke: black; 
+  stroke-width: 4px;
+}
+
+.logo-svg {
+  height: 70px;
+  width: auto;
+}
+
+.logo-img {
+  height: 95px;
+  width: auto;
+  margin-left: -25px;
+  transform: translateY(5px);
+  z-index: 2;
+  position: relative;
+  pointer-events: none;
+}
+
+/* НАСТРОЙКИ */
+.settings-stack {
+  padding: 0 20px 10px 30px;
+  border-top: 10px solid transparent;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+.settings-stack::-webkit-scrollbar {
+  width: 5px;
+}
+
+.settings-stack::-webkit-scrollbar-thumb {
+  background: #D3E3FD;
+  border-radius: 10px;
+}
+
+.settings-stack::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.settings-group {
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Убираем стрелочки для Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Убираем стрелочки для Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Одиночная строка вне списка */
+.standalone-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.standalone-icon {
+  position: absolute;
+  left: 9px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.standalone-icon img {
+  width: 85%;
+  height: 85%;
+  display: block;
+  object-fit: contain;
+}
+
+/* СИНЯЯ КНОПКА (Заголовок) */
+.group-title {
+  list-style: none;
+  background-color: #D3E3FD;
+  color: #000;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 8px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Стрелка */
+.arrow-ext {
+  position: absolute;
+  left: -20px;
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid  #000;
+  transform: rotate(-90deg);
+  transition: transform 0.3s;
+  top: 16px;
+}
+
+.settings-group[open] .arrow-ext {
+  transform: rotate(0deg);
+}
+
+/* КОНТЕНТ (Выпадающий список) */
+.group-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* СТРОКА С ИНПУТОМ */
+.input-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Иконка (СЛЕВА СНАРУЖИ) */
+.icon-ext {
+  position: absolute;
+  left: -25px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-ext img {
+  width: 75%;
+  height: 75%;
+  display: block;
+  object-fit: contain;
+}
+
+/* СЕРЫЙ ИНПУТ */
+.settings-input {
+  width: 170px;
+  height: 42px;
+  background-color: #E9EEF6;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 0 8px;
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  font-size: 16px;
+}
+
+.settings-input::placeholder {
+  color: #999;
+}
+
+.settings-action-btn {
+  width: 170px;
+  height: 42px;
+  background-color: #E9EEF6;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  text-align: left;
+  padding: 0 12px;
+  transition: background 0.2s;
+}
+
+.settings-action-btn:hover {
+  background-color: #dbe4f0;
+}
+
+.display-field {
+  width: 100%;
+  min-height: 42px;
+  background-color: #174EA7;
+  color: #FFFFFF;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px;
+  text-align: center;
+}
+
+/* ПРАВАЯ ЧАСТЬ */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 10px 0;
+  gap: 10px;
+}
+
+/* ВЕРХНЯЯ ПАНЕЛЬ */
+.top-nav {
+  height: 90px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Левая часть */
+.nav-left {
+  flex: 1.5;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #333;
+
+  padding: 15px 10px;
+
+  resize: none;
+  overflow: auto;
+  display: block;
+}
+
+.nav-input::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+/* Правая часть */
+.nav-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+/* ВЕРХНЯЯ ЧАСТЬ (СТАТУС) */
+.nav-status-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.status-label {
+  font-weight: 500;
+  margin-right: 8px;
+  color: #000;
+}
+
+.status-value {
+  flex-grow: 1;
+  font-weight: 500;
+  color: #000;
+}
+
+/* НИЖНЯЯ ЧАСТЬ (КНОПКИ) */
+.nav-buttons-row {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  padding: 0px 0px 8px 0px;
+}
+
+.nav-btn {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  transition: background 0.2s;
+  border-radius: 8px;
+}
+
+/* Кнопка ОТПРАВИТЬ */
+.btn-send {
+    background-color: #D3E3FD;
+    color: #174EA7;
+}
+
+.btn-send:hover {
+    background-color: #c2d7f7;
+}
+
+/* Кнопки ОТМЕНА и СБРОС (одинаковый стиль) */
+.btn-stop, .btn-save {
+    background-color: #E9EEF6;
+    color: #444;
+}
+
+.btn-stop:hover, .btn-save:hover {
+    background-color: #dbe4f0;
+}
+
+/* ОБЛАСТЬ ПРЕДПРОСМОТРА */
+.viewport-container {
+  padding: 8px;
+  flex-grow: 1;
+  background-color: #E9EEF6;
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewport-bg {
+  width: 100%;
+  height: 100%;
+}
+
+#previewCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background: #fff;
+    width: 350px;
+    border: 1px solid #D3E3FD;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E9EEF6;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #174EA7;
+}
+
+/* Стилизация крестика */
+.close-btn {
+    background: #E9EEF6;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+}
+
+.close-btn span::before,
+.close-btn span::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2.5px;
+    background-color: #444;
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+}
+
+.close-btn span::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-btn span::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.close-btn:hover {
+    background: #D3E3FD;
+    transform: rotate(90deg);
+}
+
+.close-btn:hover span::before,
+.close-btn:hover span::after {
+    background-color: #174EA7;
+}
+
+.modal-body {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Элемент списка (шрифт) */
+.font-item {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background: #F8FAFD;
+    border: 1px solid #E9EEF6;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.font-item:hover {
+    background: #D3E3FD;
+    border-color: #174EA7;
+    color: #174EA7;
+    padding-left: 20px;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+    background: #D3E3FD;
+    border-radius: 10px;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TMWriter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="side-panel">
+            <div class="logo-area">
+                <div class="logo-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 170" class="logo-svg">
+                        <g>
+                            <text x="0" y="68" class="fil0 fnt0">TM</text>
+                            <text x="0" y="169" class="fil0 fnt0">WRITER</text>
+                        </g>
+                    </svg>
+                    <img src="ТМ5-700.png" alt="Robot Model" class="logo-img">
+                </div>
+            </div>
+
+            <div class="settings-stack">
+                <!-- Одиночное поле Масштаб -->
+                <div class="standalone-row">
+                    <div class="standalone-icon">
+                        <img src="scale.png" alt="Scale Icon">
+                    </div>
+                    <input type="number" id="set-scale" class="settings-input" placeholder="Масштаб">
+                </div>
+
+                <!-- Одиночное поле База -->
+                <div class="standalone-row">
+                    <div class="standalone-icon">
+                        <img src="base.png" alt="Scale Icon">
+                    </div>
+                    <input type="text" id="set-base" class="settings-input" placeholder="База">
+                </div>
+
+                <!-- Группа: Настройки -->
+                <details class="settings-group" open>
+                    <summary class="group-title">
+                        <span class="title-text">Настройки</span>
+                        <span class="arrow-ext"></span>
+                    </summary>
+                    <div class="group-content">
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="IP.svg" alt="IP Icon">
+                            </div>
+                            <input type="text" id="set-ip" class="settings-input" placeholder="255.255.255.255" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" inputmode="decimal">
+                        </div>
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="speed.svg" alt="Speed Icon">
+                            </div>
+                            <input type="number" id="set-speed" class="settings-input" placeholder="Скорость">
+                        </div>
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="accelerate.svg" alt="Accelerate Icon">
+                            </div>
+                            <input type="number" id="set-accel" class="settings-input" placeholder="Ускорение">
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Группа: Поле -->
+                <details class="settings-group" open>
+                    <summary class="group-title">
+                        <span class="title-text">Поле</span>
+                        <span class="arrow-ext"></span>
+                    </summary>
+                    <div class="group-content">
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="x.svg" alt="X Icon">
+                            </div>
+                            <input type="number" id="set-field-x" class="settings-input" placeholder="Ширина">
+                        </div>
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="y.svg" alt="Y Icon">
+                            </div>
+                            <input type="number" id="set-field-y" class="settings-input" placeholder="Высота">
+                        </div>
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="z.svg" alt="Z Icon">
+                            </div>
+                            <input type="number" id="set-grip" class="settings-input" placeholder="Захват">
+                        </div>
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="rise.svg" alt="Rise Icon">
+                            </div>
+                            <input type="number" id="set-lift" class="settings-input" placeholder="Подъём">
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Группа: Шрифт -->
+                <details class="settings-group" open>
+                    <summary class="group-title">
+                        <span class="title-text">Шрифт</span>
+                        <span class="arrow-ext"></span>
+                    </summary>
+                    <div class="group-content">
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="load.svg" alt="Load">
+                            </div>
+                            <button id="btn-load-font" class="settings-action-btn">Загрузить</button>
+                        </div>
+                        <div class="input-row">
+                            <div class="icon-ext">
+                                <img src="select.svg" alt="Select">
+                            </div>
+                            <button id="btn-select-font" class="settings-action-btn">Выбрать</button>
+                        </div>
+                        <div id="active-font-name" class="display-field">
+                            Название файла...
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <textarea id="main-text-input" class="nav-input" placeholder="Введите текст..."></textarea>
+                </div>
+                <div class="nav-right">
+                    <div class="nav-status-row">
+                        <span class="status-label">Статус:</span>
+                        <div id="status-display" class="status-value">Ожидание...</div>
+                    </div>
+
+                    <div class="nav-buttons-row">
+                        <button id="btn-send" class="nav-btn btn-send">Отправить</button>
+                        <button id="btn-stop" class="nav-btn btn-stop">Стоп</button>
+                        <button id="btn-save" class="nav-btn btn-save">Сохранить</button>
+                    </div>
+                </div>
+            </header>
+
+            <section class="viewport-container">
+                <!-- ИСПРАВЛЕНО: Добавлен сам холст -->
+                <canvas id="previewCanvas" class="viewport-bg"></canvas>
+            </section>
+        </div>
+    </div>
+
+    <input type="file" id="fontInput" accept=".json" style="display: none;">
+    <div id="fontModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Выберите шрифт</h3>
+                <button id="closeModal" class="close-btn"><span></span></button>
+            </div>
+            <div id="fontsList" class="modal-body">
+                <!-- Сюда JS вставит список -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
